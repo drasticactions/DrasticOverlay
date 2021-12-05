@@ -18,10 +18,20 @@ public partial class App : Application
 
 internal class TestWindow : Window
 {
+    internal DragAndDropOverlay dragAndDropOverlay;
     HitDetectionOverlay hitDetectionOverlay;
     BackgroundOverlay backgroundOverlay;
     LoadingOverlay loadingOverlay;
     MenuOverlay menuOverlay;
+
+    public TestWindow()
+    {
+        this.hitDetectionOverlay = new HitDetectionOverlay(this) { IsVisible = false };
+        this.backgroundOverlay = new BackgroundOverlay(this) { IsVisible = false };
+        this.menuOverlay = new MenuOverlay(this);
+        this.loadingOverlay = new LoadingOverlay(this) { IsVisible = false };
+        this.dragAndDropOverlay = new DragAndDropOverlay(this);
+    }
 
     public void ShowHitDetectionOverlay() => this.hitDetectionOverlay.IsVisible = true;
 
@@ -68,14 +78,11 @@ internal class TestWindow : Window
         // It should go here. This assures that the Window is created, so that
         // the underlying views will be created correctly as well.
         VisualDiagnosticsOverlay.Tapped += VisualDiagnosticsOverlay_Tapped;
-        this.hitDetectionOverlay = new HitDetectionOverlay(this) {  IsVisible = false } ;
-        this.backgroundOverlay = new BackgroundOverlay(this) { IsVisible = false };
-        this.menuOverlay = new MenuOverlay(this);
-        this.loadingOverlay = new LoadingOverlay(this) { IsVisible = false };
         this.AddOverlay(this.backgroundOverlay);
         this.AddOverlay(this.menuOverlay);
         this.AddOverlay(this.loadingOverlay);
         this.AddOverlay(this.hitDetectionOverlay);
+        this.AddOverlay(this.dragAndDropOverlay);
         base.OnCreated();
     }
 }

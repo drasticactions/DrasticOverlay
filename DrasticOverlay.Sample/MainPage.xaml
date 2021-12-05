@@ -9,6 +9,8 @@
             <Button Clicked="OnBackgroundOverlay" Text="Enable Background Overlay" />
             <Button Clicked="OnHitDetectionOverlay" Text="Enable Hit Detection Overlay" />
             <Button Clicked="OnDrawAdorners" Text="Enable Adorner Overlay (Disables UI! Tap on elements to view adorners)" />
+            <Image HeightRequest="300" x:Name="DropImage"/>
+            <Label HorizontalOptions="Center" x:Name="DropFilename"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

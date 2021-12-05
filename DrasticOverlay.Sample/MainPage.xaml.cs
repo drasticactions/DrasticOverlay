@@ -11,7 +11,24 @@ public partial class MainPage : ContentPage
 		this.Background = Colors.White;
 	}
 
-	private async void OnDrawAdorners(object sender, EventArgs e)
+    protected override void OnAppearing()
+    {
+		base.OnAppearing();
+		((TestWindow)this.GetParentWindow()).dragAndDropOverlay.Drop += DragAndDropOverlay_Drop;
+	}
+
+	private void DragAndDropOverlay_Drop(object sender, DragAndDropOverlayTappedEventArgs e)
+    {
+		if (e == null)
+			return;
+
+		this.Dispatcher.Dispatch(() => {
+			this.DropFilename.Text = e.Filename;
+			this.DropImage.Source = ImageSource.FromStream(() => new MemoryStream(e.File));
+		});
+    }
+
+    private async void OnDrawAdorners(object sender, EventArgs e)
     {
 		// This will disable UI Touch Events passing down to the child elements under them.
 		// This will block all UI events beyond this overlay. But it also means
