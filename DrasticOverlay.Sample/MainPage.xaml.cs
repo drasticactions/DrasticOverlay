@@ -28,7 +28,14 @@ public partial class MainPage : ContentPage
 		});
     }
 
-    private async void OnDrawAdorners(object sender, EventArgs e)
+	private async void OnVideoOverlay(object sender, EventArgs e)
+	{
+		this.Background = Colors.Transparent;
+		((TestWindow)this.GetParentWindow()).videoOverlay.SetVideoUrl("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4");
+	}
+
+
+	private async void OnDrawAdorners(object sender, EventArgs e)
     {
 		// This will disable UI Touch Events passing down to the child elements under them.
 		// This will block all UI events beyond this overlay. But it also means

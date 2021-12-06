@@ -18,6 +18,7 @@ public partial class App : Application
 
 internal class TestWindow : Window
 {
+    internal VideoOverlay videoOverlay;
     internal DragAndDropOverlay dragAndDropOverlay;
     HitDetectionOverlay hitDetectionOverlay;
     BackgroundOverlay backgroundOverlay;
@@ -26,6 +27,7 @@ internal class TestWindow : Window
 
     public TestWindow()
     {
+        this.videoOverlay = new VideoOverlay(this);
         this.hitDetectionOverlay = new HitDetectionOverlay(this) { IsVisible = false };
         this.backgroundOverlay = new BackgroundOverlay(this) { IsVisible = false };
         this.menuOverlay = new MenuOverlay(this);
@@ -83,6 +85,7 @@ internal class TestWindow : Window
         this.AddOverlay(this.loadingOverlay);
         this.AddOverlay(this.hitDetectionOverlay);
         this.AddOverlay(this.dragAndDropOverlay);
+        this.AddOverlay(this.videoOverlay);
         base.OnCreated();
     }
 }
