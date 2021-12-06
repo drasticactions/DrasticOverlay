@@ -14,7 +14,11 @@ namespace DrasticOverlay.Overlays
         internal bool IsDragging
         {
             get => dropElement.IsDragging;
-            set => dropElement.IsDragging = value;
+            set
+            {
+                dropElement.IsDragging = value;
+                this.Invalidate();
+            }
         }
 
         public DragAndDropOverlay(IWindow window)

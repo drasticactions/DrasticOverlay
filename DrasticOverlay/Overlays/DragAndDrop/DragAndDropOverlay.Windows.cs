@@ -58,13 +58,11 @@ namespace DrasticOverlay.Overlays
         private void Panel_DropCompleted(Microsoft.UI.Xaml.UIElement sender, Microsoft.UI.Xaml.DropCompletedEventArgs args)
         {
             this.IsDragging = false;
-            this.Invalidate();
         }
 
         private void Panel_DragLeave(object sender, Microsoft.UI.Xaml.DragEventArgs e)
         {
             this.IsDragging = false;
-            this.Invalidate();
         }
 
 
@@ -77,10 +75,10 @@ namespace DrasticOverlay.Overlays
             {
                 var items = await e.DataView.GetStorageItemsAsync();
                 if (!items.Any())
-                    return;
+                    break;
                 var item = items.First() as StorageFile;
                 if (item == null)
-                    return;
+                    break;
 
                 // Take the random access stream and turn it into a byte array.
                 var bits = (await item.OpenAsync(FileAccessMode.Read));
@@ -92,7 +90,6 @@ namespace DrasticOverlay.Overlays
             }
 
             this.IsDragging = false;
-            this.Invalidate();
         }
 
         private void Panel_DragOver(object sender, Microsoft.UI.Xaml.DragEventArgs e)
@@ -101,7 +98,6 @@ namespace DrasticOverlay.Overlays
             // As I want to drag an image into the panel.
             e.AcceptedOperation = Windows.ApplicationModel.DataTransfer.DataPackageOperation.Copy;
             this.IsDragging = true;
-            this.Invalidate();
         }
     }
 }
