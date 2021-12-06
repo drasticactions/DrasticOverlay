@@ -74,19 +74,20 @@ namespace DrasticOverlay.Overlays
             if (e.DataView.Contains(StandardDataFormats.StorageItems))
             {
                 var items = await e.DataView.GetStorageItemsAsync();
-                if (!items.Any())
-                    break;
-                var item = items.First() as StorageFile;
-                if (item == null)
-                    break;
-
-                // Take the random access stream and turn it into a byte array.
-                var bits = (await item.OpenAsync(FileAccessMode.Read));
-                var reader = new DataReader(bits.GetInputStreamAt(0));
-                var bytes = new byte[bits.Size];
-                await reader.LoadAsync((uint)bits.Size);
-                reader.ReadBytes(bytes);
-                this.Drop?.Invoke(this, new DragAndDropOverlayTappedEventArgs(item.Name, bytes));
+                if (items.Any())
+                {
+                    var item = items.First() as StorageFile;
+                    if (item != null)
+                    {
+                        // Take the random access stream and turn it into a byte array.
+                        var bits = (await item.OpenAsync(FileAccessMode.Read));
+                        var reader = new DataReader(bits.GetInputStreamAt(0));
+                        var bytes = new byte[bits.Size];
+                        await reader.LoadAsync((uint)bits.Size);
+                        reader.ReadBytes(bytes);
+                        this.Drop?.Invoke(this, new DragAndDropOverlayTappedEventArgs(item.Name, bytes));
+                    }
+                }
             }
 
             this.IsDragging = false;
