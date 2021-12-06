@@ -36,9 +36,10 @@ namespace DrasticOverlay.Overlays
 			if (nativeWindow?.RootViewController?.View == null)
 				return false;
 
-			avPlayerViewController.View.BackgroundColor = UIColor.White;
+			//avPlayerViewController.View.BackgroundColor = UIColor.Black;
+			avPlayerViewController.ShowsPlaybackControls = false;
 			nativeWindow?.RootViewController.View.AddSubview(avPlayerViewController.View);
-			nativeWindow?.RootViewController.View.SendSubviewToBack(nativeWindow);
+			nativeWindow?.RootViewController.View.SendSubviewToBack(avPlayerViewController.View);
 			return videoOverlayNativeElementsInitialized = true;
         }
 
@@ -47,6 +48,7 @@ namespace DrasticOverlay.Overlays
 			var asset = AVUrlAsset.Create(NSUrl.FromString(url));
 			var playerItem = new AVPlayerItem(asset);
 			avPlayerViewController.Player = new AVPlayer(playerItem);
+			avPlayerViewController.Player.Play();
 		}
 
 		protected virtual void Play()
