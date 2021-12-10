@@ -58,6 +58,12 @@
 	  <ProjectReference Include="..\DrasticOverlay\DrasticOverlay.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiXaml Update="TestOverlayPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 	<PropertyGroup Condition="$(TargetFramework.Contains('-windows'))">
 		<OutputType>WinExe</OutputType>
 		<RuntimeIdentifier>win10-x64</RuntimeIdentifier>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="DrasticOverlay.Sample.TestOverlayPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:DrasticOverlay.Sample"
+             BackgroundColor="White">
+	<ContentPage.Content>
+		<VerticalStackLayout Spacing="10" VerticalOptions="Center">
+            <Label 
+                Text="Hello, World!"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="32"
+                HorizontalOptions="Center" />
+            <Image
+                Source="dotnet_bot.png"
+                SemanticProperties.Description="Cute dot net bot waving hi to you!"
+                WidthRequest="250"
+                HeightRequest="310"
+                HorizontalOptions="Center" />
+            <Button Clicked="OnPageOverlay" Text="Remove Page Overlay" />
+        </VerticalStackLayout>
+	</ContentPage.Content>
+</ContentPage>

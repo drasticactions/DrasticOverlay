@@ -16,10 +16,11 @@ public partial class App : Application
 }
 
 
-internal class TestWindow : Window
+public class TestWindow : Window, IVisualTreeElement
 {
     internal VideoOverlay videoOverlay;
     internal DragAndDropOverlay dragAndDropOverlay;
+    internal PageOverlay pageOverlay;
     HitDetectionOverlay hitDetectionOverlay;
     BackgroundOverlay backgroundOverlay;
     LoadingOverlay loadingOverlay;
@@ -27,6 +28,7 @@ internal class TestWindow : Window
 
     public TestWindow()
     {
+        this.pageOverlay = new PageOverlay(this);
         this.videoOverlay = new VideoOverlay(this);
         this.hitDetectionOverlay = new HitDetectionOverlay(this) { IsVisible = false };
         this.backgroundOverlay = new BackgroundOverlay(this) { IsVisible = false };
@@ -86,6 +88,21 @@ internal class TestWindow : Window
         this.AddOverlay(this.hitDetectionOverlay);
         this.AddOverlay(this.dragAndDropOverlay);
         this.AddOverlay(this.videoOverlay);
+        this.AddOverlay(this.pageOverlay);
         base.OnCreated();
     }
+
+    public IReadOnlyList<IVisualTreeElement> GetVisualChildren()
+    {
+        var elements = new List<IVisualTreeElement>();
+        if (this.Page != null && this.Page is IVisualTreeElement element)
+            elements.AddRange(element.GetVisualChildren());
+
+        var overlays = this.Overlays.Where(n => n is IVisualTreeElement).Cast<IVisualTreeElement>();
+        elements.AddRange(overlays);
+
+        return elements;
+    }
+
+    public IVisualTreeElement? GetVisualParent() => App.Current;
 }

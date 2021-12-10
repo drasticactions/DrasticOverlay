@@ -4,9 +4,11 @@ namespace DrasticOverlay.Sample;
 
 public partial class MainPage : ContentPage
 {
+	bool isNested;
 
 	public MainPage()
 	{
+		this.isNested = isNested;
 		InitializeComponent();
 		this.Background = Colors.White;
 	}
@@ -27,6 +29,12 @@ public partial class MainPage : ContentPage
 			this.DropImage.Source = ImageSource.FromStream(() => new MemoryStream(e.File));
 		});
     }
+
+	private async void OnPageOverlay(object sender, EventArgs e)
+	{
+		var window = (TestWindow)this.GetParentWindow();
+		window.pageOverlay.SetPage(new TestOverlayPage(window));
+	}
 
 	private async void OnVideoOverlay(object sender, EventArgs e)
 	{
