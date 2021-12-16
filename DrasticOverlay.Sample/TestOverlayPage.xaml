@@ -3,21 +3,14 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:DrasticOverlay.Sample"
-             BackgroundColor="White">
+             BackgroundColor="Transparent">
 	<ContentPage.Content>
-		<VerticalStackLayout Spacing="10" VerticalOptions="Center">
-            <Label 
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                WidthRequest="250"
-                HeightRequest="310"
-                HorizontalOptions="Center" />
-            <Button Clicked="OnPageOverlay" Text="Remove Page Overlay" />
-        </VerticalStackLayout>
+        <GridLayout RowDefinitions="200,*" ColumnDefinitions="*,500">
+            <Border Margin="10" StrokeThickness="5" BackgroundColor="Red" x:Name="BorderView" GridLayout.Row="0" GridLayout.Column="1">
+                <GridLayout ColumnDefinitions="*, Auto">
+
+                </GridLayout>
+            </Border>
+        </GridLayout>
 	</ContentPage.Content>
 </ContentPage>
