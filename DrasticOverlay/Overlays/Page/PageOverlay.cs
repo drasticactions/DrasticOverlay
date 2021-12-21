@@ -11,6 +11,7 @@ namespace DrasticOverlay.Overlays
         bool pageOverlayNativeElementsInitialized;
         internal bool pageSet;
         internal Page? page;
+        internal IList<IView> elements = new List<IView>();
         public PageOverlay(IWindow window)
             : base(window)
         {

@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui;
+﻿using DrasticOverlay.Core;
+using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Shapes;
 using Microsoft.Maui.Controls.Xaml;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 namespace DrasticOverlay.Sample
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class TestOverlayPage : ContentPage
+    public partial class TestOverlayPage : ContentPage, IHitTestPage
     {
         TestWindow window;
         
@@ -19,19 +20,11 @@ namespace DrasticOverlay.Sample
         {
             this.window = window;
             InitializeComponent();
-            UpdateBorderView();
+            this.HitTestViews = new List<IView>() { this.TestingView };
+
         }
 
-        private void UpdateBorderView()
-        {
-            var borderShape = new RoundRectangle
-            {
-                CornerRadius = new CornerRadius(2, 2, 2, 2)
-            };
-
-            BorderView.StrokeShape = borderShape;
-            BorderView.Stroke = new SolidColorBrush(Colors.Black);
-        }
+        public List<IView> HitTestViews { get; } = new List<IView>();
 
         private async void OnPageOverlay(object sender, EventArgs e)
         {

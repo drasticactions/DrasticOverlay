@@ -7,4 +7,10 @@
       <Nullable>enable</Nullable>
 	  <UseMaui>true</UseMaui>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Tools\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Tools\" />
+  </ItemGroup>
 </Project>

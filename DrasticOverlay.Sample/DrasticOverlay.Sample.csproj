@@ -49,6 +49,10 @@
 		<PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.0.30" />
 	</ItemGroup>
 
+	<PropertyGroup Condition="$(TargetFramework.Contains('-android'))">
+		<RuntimeIdentifier>android-arm64</RuntimeIdentifier>
+	</PropertyGroup>
+
 	<ItemGroup>
 	  <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
 	  <PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />

@@ -6,11 +6,9 @@
              BackgroundColor="Transparent">
 	<ContentPage.Content>
         <GridLayout RowDefinitions="200,*" ColumnDefinitions="*,500">
-            <Border Margin="10" StrokeThickness="5" BackgroundColor="Red" x:Name="BorderView" GridLayout.Row="0" GridLayout.Column="1">
-                <GridLayout ColumnDefinitions="*, Auto">
-
-                </GridLayout>
-            </Border>
+            <GridLayout Margin="10" BackgroundColor="Red" x:Name="TestingView" GridLayout.Row="0" GridLayout.Column="1">
+                
+            </GridLayout>
         </GridLayout>
 	</ContentPage.Content>
 </ContentPage>
