@@ -20,7 +20,7 @@ namespace DrasticOverlay.Overlays
         IMauiContext? mauiContext;
         Activity? _nativeActivity;
         ViewGroup? _nativeLayer;
-        Android.Views.View element;
+        Android.Views.View? element;
 
         /// <inheritdoc/>
         public override bool Initialize()
@@ -98,9 +98,10 @@ namespace DrasticOverlay.Overlays
 
             this.page = page;
             var pageHandler = page.ToHandler(this.mauiContext);
-            this.element = pageHandler.NativeView;
+            this.element = pageHandler?.NativeView;
             if (this.element != null)
             {
+                this.element.Touch += Element_Touch;
                 var layerCount = _nativeLayer.ChildCount;
                 var childView = _nativeLayer.GetChildAt(1);
                 _nativeLayer.AddView(this.element, layerCount, new CoordinatorLayout.LayoutParams(CoordinatorLayout.LayoutParams.MatchParent, CoordinatorLayout.LayoutParams.MatchParent));
@@ -126,10 +127,31 @@ namespace DrasticOverlay.Overlays
                 return;
             }
 
+            this.element.Touch -= Element_Touch;
             this.elements.Clear();
             this._nativeLayer?.RemoveView(this.element);
             this.pageSet = false;
             Microsoft.Maui.Controls.Xaml.Diagnostics.VisualDiagnostics.OnChildRemoved(this, this.page, 0);
+        }
+
+        private void Element_Touch(object? sender, Android.Views.View.TouchEventArgs e)
+        {
+            if (e?.Event == null)
+            {
+                return;
+            }
+
+            foreach (var element in this.elements)
+            {
+                var boundingBox = element.GetBoundingBox();
+                if (boundingBox.Contains(e.Event.RawX, e.Event.RawY))
+                {
+                    e.Handled = true;
+                    return;
+                }
+            }
+
+            e.Handled = false;
         }
     }
 }

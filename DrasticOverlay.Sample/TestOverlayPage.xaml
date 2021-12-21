@@ -7,7 +7,6 @@
 	<ContentPage.Content>
         <GridLayout RowDefinitions="200,*" ColumnDefinitions="*,500">
             <GridLayout Margin="10" BackgroundColor="Red" x:Name="TestingView" GridLayout.Row="0" GridLayout.Column="1">
-                
             </GridLayout>
         </GridLayout>
 	</ContentPage.Content>
