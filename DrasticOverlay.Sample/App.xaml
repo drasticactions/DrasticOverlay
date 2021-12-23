@@ -5,21 +5,5 @@
              x:Class="DrasticOverlay.Sample.App"
              windows:Application.ImageDirectory="Assets">
     <Application.Resources>
-        <ResourceDictionary>
-
-            <Color x:Key="PrimaryColor">#512bdf</Color>
-            <Color x:Key="SecondaryColor">White</Color>
-
-            <Style TargetType="Label">
-                <Setter Property="TextColor" Value="{DynamicResource PrimaryColor}" />
-            </Style>
-
-            <Style TargetType="Button">
-                <Setter Property="TextColor" Value="{DynamicResource SecondaryColor}" />
-                <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}" />
-                <Setter Property="Padding" Value="14,10" />
-            </Style>
-
-        </ResourceDictionary>
     </Application.Resources>
 </Application>

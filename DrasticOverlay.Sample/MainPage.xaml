@@ -1,18 +1,6 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DrasticOverlay.Sample.MainPage"
-             BackgroundColor="Transparent">
-
+             x:Class="DrasticOverlay.Sample.MainPage">
     <ScrollView>
-        <VerticalStackLayout Spacing="10">
-            <Button Clicked="OnLoadingOverlay" Text="Enable Loading Overlay" />
-            <Button Clicked="OnBackgroundOverlay" Text="Enable Background Overlay" />
-            <Button Clicked="OnHitDetectionOverlay" Text="Enable Hit Detection Overlay" />
-            <Button Clicked="OnVideoOverlay" Text="Play Video" />
-            <Button Clicked="OnPageOverlay" Text="Show Page Overlay" />
-            <Button Clicked="OnDrawAdorners" Text="Enable Adorner Overlay (Disables UI! Tap on elements to view adorners)" />
-            <Image HeightRequest="300" x:Name="DropImage"/>
-            <Label HorizontalOptions="Center" x:Name="DropFilename"/>
-        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

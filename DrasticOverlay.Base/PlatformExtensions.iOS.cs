@@ -11,18 +11,18 @@ using UIKit;
 
 namespace DrasticOverlay
 {
-    internal static class PlatformExtensions
+    public static class PlatformExtensions
     {
-		internal static UIView? GetNative(this IElement view, bool returnWrappedIfPresent)
-		{
-			if (view.Handler is INativeViewHandler nativeHandler && nativeHandler.NativeView != null)
-				return nativeHandler.NativeView;
+        public static UIView? GetNative(this IElement view, bool returnWrappedIfPresent)
+        {
+            if (view.Handler is INativeViewHandler nativeHandler && nativeHandler.NativeView != null)
+                return nativeHandler.NativeView;
 
-			return (view.Handler?.NativeView as UIView);
+            return (view.Handler?.NativeView as UIView);
 
-		}
+        }
 
-        internal static System.Numerics.Matrix4x4 GetViewTransform(this IView view)
+        public static System.Numerics.Matrix4x4 GetViewTransform(this IView view)
         {
             var nativeView = view?.GetNative(true);
             if (nativeView == null)
@@ -30,13 +30,13 @@ namespace DrasticOverlay
             return nativeView.Layer.GetViewTransform();
         }
 
-        internal static System.Numerics.Matrix4x4 GetViewTransform(this UIView view)
+        public static System.Numerics.Matrix4x4 GetViewTransform(this UIView view)
             => view.Layer.GetViewTransform();
 
-        internal static Microsoft.Maui.Graphics.Rectangle GetBoundingBox(this IView view)
+        public static Microsoft.Maui.Graphics.Rectangle GetBoundingBox(this IView view)
             => view.GetNative(true).GetBoundingBox();
 
-        internal static Microsoft.Maui.Graphics.Rectangle GetBoundingBox(this UIView? nativeView)
+        public static Microsoft.Maui.Graphics.Rectangle GetBoundingBox(this UIView? nativeView)
         {
             if (nativeView == null)
                 return new Rectangle();
@@ -48,9 +48,9 @@ namespace DrasticOverlay
             return new Rectangle(nvb.X, nvb.Y, nvb.Width, nvb.Height);
         }
 
-        internal static double ExtractAngleInRadians(this System.Numerics.Matrix4x4 matrix) => Math.Atan2(matrix.M21, matrix.M11);
+        public static double ExtractAngleInRadians(this System.Numerics.Matrix4x4 matrix) => Math.Atan2(matrix.M21, matrix.M11);
 
-        internal static Rectangle GetNativeViewBounds(this IView view)
+        public static Rectangle GetNativeViewBounds(this IView view)
         {
             var nativeView = view?.GetNative(true);
             if (nativeView == null)
@@ -61,7 +61,7 @@ namespace DrasticOverlay
             return nativeView.GetNativeViewBounds();
         }
 
-        internal static Rectangle GetNativeViewBounds(this UIView nativeView)
+        public static Rectangle GetNativeViewBounds(this UIView nativeView)
         {
             if (nativeView == null)
                 return new Rectangle();
@@ -82,7 +82,7 @@ namespace DrasticOverlay
             return new Rectangle(X, Y, Width, Height);
         }
 
-        internal static Matrix4x4 ToViewTransform(this CATransform3D transform) =>
+        public static Matrix4x4 ToViewTransform(this CATransform3D transform) =>
            new Matrix4x4
            {
                M11 = (float)transform.m11,
@@ -101,7 +101,7 @@ namespace DrasticOverlay
                M44 = (float)transform.m44
            };
 
-        internal static Matrix4x4 GetViewTransform(this CALayer layer)
+        public static Matrix4x4 GetViewTransform(this CALayer layer)
         {
             if (layer == null)
                 return new Matrix4x4();
@@ -117,10 +117,10 @@ namespace DrasticOverlay
                     .ToViewTransform();
         }
 
-        internal static CATransform3D Prepend(this CATransform3D a, CATransform3D b) =>
+        public static CATransform3D Prepend(this CATransform3D a, CATransform3D b) =>
             b.Concat(a);
 
-        internal static CATransform3D GetLocalTransform(this CALayer layer)
+        public static CATransform3D GetLocalTransform(this CALayer layer)
         {
             return CATransform3D.Identity
                 .Translate(
@@ -134,7 +134,7 @@ namespace DrasticOverlay
                     -layer.AnchorPointZ);
         }
 
-        internal static CATransform3D GetChildTransform(this CALayer layer)
+        public static CATransform3D GetChildTransform(this CALayer layer)
         {
             var childTransform = layer.SublayerTransform;
 
@@ -153,7 +153,7 @@ namespace DrasticOverlay
                     -layer.AnchorPointZ);
         }
 
-        internal static CATransform3D TransformToAncestor(this CALayer fromLayer, CALayer toLayer)
+        public static CATransform3D TransformToAncestor(this CALayer fromLayer, CALayer toLayer)
         {
             var transform = CATransform3D.Identity;
 
@@ -172,3 +172,4 @@ namespace DrasticOverlay
         }
     }
 }
+

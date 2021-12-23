@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="DragAndDropOverlay.Windows.cs" company="Drastic Actions">
+// Copyright (c) Drastic Actions. All rights reserved.
+// </copyright>
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,39 +11,49 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 using Windows.Storage.Streams;
 
-namespace DrasticOverlay.Overlays
+namespace DrasticOverlay
 {
-    public partial class DragAndDropOverlay
-    {
-        Microsoft.UI.Xaml.Controls.Panel? panel;
+	/// <summary>
+	/// Drag And Drop Overlay.
+	/// </summary>
+	public partial class DragAndDropOverlay
+	{
+		private Microsoft.UI.Xaml.Controls.Panel? panel;
 
         public override bool Initialize()
         {
-            if (dragAndDropOverlayNativeElementsInitialized)
+            if (this.dragAndDropOverlayNativeElementsInitialized)
+            {
                 return true;
+            }
 
             base.Initialize();
 
             var _nativeElement = Window.Content.GetNative(true);
             if (_nativeElement == null)
+            {
                 return false;
+            }
 
             var handler = Window.Handler as Microsoft.Maui.Handlers.WindowHandler;
             if (handler?.NativeView is not Microsoft.UI.Xaml.Window _window)
+            {
                 return false;
+            }
 
             this.panel = _window.Content as Microsoft.UI.Xaml.Controls.Panel;
-            if (panel == null)
+            if (this.panel == null)
+            {
                 return false;
+            }
 
-            panel.AllowDrop = true;
-            panel.DragOver += Panel_DragOver;
-            panel.Drop += Panel_Drop;
-            panel.DragLeave += Panel_DragLeave;
-            panel.DropCompleted += Panel_DropCompleted;
+            this.panel.AllowDrop = true;
+            this.panel.DragOver += Panel_DragOver;
+            this.panel.Drop += Panel_Drop;
+            this.panel.DragLeave += Panel_DragLeave;
+            this.panel.DropCompleted += Panel_DropCompleted;
             return dragAndDropOverlayNativeElementsInitialized = true;
         }
-
 
         public override bool Deinitialize()
         {
@@ -65,7 +79,6 @@ namespace DrasticOverlay.Overlays
             this.IsDragging = false;
         }
 
-
         private async void Panel_Drop(object sender, Microsoft.UI.Xaml.DragEventArgs e)
         {
             // We're gonna cheat and only take the first item dragged in by the user.
@@ -76,29 +89,22 @@ namespace DrasticOverlay.Overlays
                 var items = await e.DataView.GetStorageItemsAsync();
                 if (items.Any())
                 {
-                    var item = items.First() as StorageFile;
-                    if (item != null)
+                    var filePaths = new List<string>();
+                    foreach(var item in items)
                     {
-                        // Take the random access stream and turn it into a byte array.
-                        var bits = (await item.OpenAsync(FileAccessMode.Read));
-                        var reader = new DataReader(bits.GetInputStreamAt(0));
-                        var bytes = new byte[bits.Size];
-                        await reader.LoadAsync((uint)bits.Size);
-                        reader.ReadBytes(bytes);
-                        this.Drop?.Invoke(this, new DragAndDropOverlayTappedEventArgs(item.Name, bytes));
+                        if (item is StorageFile file)
+                        {
+                            // TODO Add.
+                        }
                     }
+                    this.Drop?.Invoke(this, new DragAndDropOverlayTappedEventArgs(filePaths));
                 }
-            }
-
-            this.IsDragging = false;
         }
 
         private void Panel_DragOver(object sender, Microsoft.UI.Xaml.DragEventArgs e)
         {
-            // For this, we're going to allow "copy"
-            // As I want to drag an image into the panel.
             e.AcceptedOperation = Windows.ApplicationModel.DataTransfer.DataPackageOperation.Copy;
-            this.IsDragging = true;
         }
     }
 }
+
